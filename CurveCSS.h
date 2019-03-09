@@ -14,6 +14,11 @@
 #pragma once
 
 #pragma mark Curves Utilities
+#include <bits/stdc++.h>
+#include <opencv2/opencv.hpp>
+using namespace std;
+using namespace cv;
+
 template<typename T, typename V>
 void PolyLineSplit(const vector<Point_<T> >& pl,vector<V>& contourx, vector<V>& contoury) {
 	contourx.resize(pl.size()); 
@@ -203,7 +208,7 @@ void GetCurveSegmentsWithCSSImage(vector<Point_<T> >& curve, vector<int>& intere
 	drawOpenCurve(drawing, curve, color, 2);
 	
 	for (int m=0; m<interestPoints.size() ; m++) {
-		circle(drawing, curve[interestPoints[m]], 5, Scalar(0,255), CV_FILLED);
+		circle(drawing, curve[interestPoints[m]], 5, Scalar(0,255), FILLED);
 	}
 	imshow("curve interests", drawing);
 	waitKey();

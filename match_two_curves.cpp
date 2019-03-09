@@ -1,7 +1,7 @@
-using namespace cv;
-
 #include "CurveCSS.h"
 #include "CurveSignature.h"
+using namespace cv;
+using namespace std;
 
 int main(int argc, char** argv) {
 	vector<Point> a,b;

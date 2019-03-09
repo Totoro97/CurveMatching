@@ -17,7 +17,3 @@ add_executable(MatchTwoCurves
 target_link_libraries(MatchTwoCurves
 	${OpenCV_LIBS}
 	)
-	
-set_target_properties(MatchTwoCurves PROPERTIES COTIRE_CXX_PREFIX_HEADER_INIT "std.h")
-
-cotire(MatchTwoCurves)

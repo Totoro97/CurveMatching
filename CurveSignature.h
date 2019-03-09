@@ -96,7 +96,7 @@ Mat_<double> Find2DRigidTransform(const vector<Point_<V> >& a, const vector<Poin
 	//use PCA to find relational scale
 	Mat_<V> P; Mat(a).reshape(1,a.size()).copyTo(P);
 	Mat_<V> Q; Mat(b).reshape(1,b.size()).copyTo(Q);
-	PCA a_pca(P,Mat(),CV_PCA_DATA_AS_ROW), b_pca(Q,Mat(),CV_PCA_DATA_AS_ROW);
+	PCA a_pca(P,Mat(), PCA::DATA_AS_ROW), b_pca(Q,Mat(), PCA::DATA_AS_ROW);
 	double s = sqrt(b_pca.eigenvalues.at<V>(0)) / sqrt(a_pca.eigenvalues.at<V>(0));
 	//	cout << a_pca.eigenvectors << endl << a_pca.eigenvalues << endl << a_pca.mean << endl;
 	//	cout << b_pca.eigenvectors << endl << b_pca.eigenvalues << endl << b_pca.mean << endl;
@@ -241,22 +241,22 @@ void VisualizeExtremaPoints(Mat& outout,
 {
 	for (int i=0; i<stringrep.size(); i++) {
 		if (stringrep[i].first == 'X') {
-			circle(outout, smooth[stringrep[i].second], 3, Scalar(0,0,255), CV_FILLED);
+			circle(outout, smooth[stringrep[i].second], 3, Scalar(0,0,255), FILLED);
 		}
 		if (stringrep[i].first == 'N') {
-			circle(outout, smooth[stringrep[i].second], 3, Scalar(255,255,0), CV_FILLED);
+			circle(outout, smooth[stringrep[i].second], 3, Scalar(255,255,0), FILLED);
 		}
 		if (stringrep[i].first == 'x') {
-			circle(outout, smooth[stringrep[i].second], 3, Scalar(0,255,0), CV_FILLED);
+			circle(outout, smooth[stringrep[i].second], 3, Scalar(0,255,0), FILLED);
 		}
 		if (stringrep[i].first == 'n') {
-			circle(outout, smooth[stringrep[i].second], 3, Scalar(0,255,255), CV_FILLED);
+			circle(outout, smooth[stringrep[i].second], 3, Scalar(0,255,255), FILLED);
 		}
 		if (stringrep[i].first == 'I') {
-			circle(outout, smooth[stringrep[i].second], 3, Scalar(50,50,50), CV_FILLED);
+			circle(outout, smooth[stringrep[i].second], 3, Scalar(50,50,50), FILLED);
 		}
 		if (stringrep[i].first == 'i') {
-			circle(outout, smooth[stringrep[i].second], 3, Scalar(100,100,100), CV_FILLED);
+			circle(outout, smooth[stringrep[i].second], 3, Scalar(100,100,100), FILLED);
 		}
 	}
 }	
@@ -271,7 +271,7 @@ void VisualizeExtrema(const Mat& src,
 	
 	Mat outout; //(src.size(),CV_8UC3,Scalar::all(0));
 	if (src.channels() == 1) {
-		cvtColor(src, outout, CV_GRAY2BGR);
+		cvtColor(src, outout, COLOR_GRAY2BGR);
 	} else {
 		src.copyTo(outout);
 	}
@@ -281,7 +281,7 @@ void VisualizeExtrema(const Mat& src,
 	for (int i=0; i<stringrep.size(); i++) {
 		ss << stringrep[i].first;
 	}
-	putText(outout, ss.str(), cv::Point(10,src.rows-20), CV_FONT_NORMAL, 0.5, Scalar(0,0,255), 1);
+	putText(outout, ss.str(), cv::Point(10,src.rows-20), FONT_HERSHEY_PLAIN, 0.5, Scalar(0,0,255), 1);
 	stringstream winname;
 	if (in_winname == "") {
 		winname << "output" << win_id++;

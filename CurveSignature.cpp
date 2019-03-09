@@ -8,9 +8,7 @@
  */
 
 #include "std.h"
-#include <opencv2/features2d/features2d.hpp>
-#include <opencv2/flann/flann.hpp>
-#include <opencv2/flann/dist.h>
+#include <opencv2/opencv.hpp>
 using namespace cv;
 
 #include "CurveCSS.h"
@@ -33,18 +31,20 @@ void GetCurveForImage(const Mat& filename, vector<Point>& whole, vector<Point>& 
 	Mat tmp; filename.copyTo(tmp);
 	Mat gray; 
 	if(tmp.type() == CV_8UC3)
-		cvtColor(tmp, gray, CV_BGR2GRAY);
+		cvtColor(tmp, gray, COLOR_BGR2GRAY);
 	else if(tmp.type() == CV_8UC1)
 		gray = tmp;
-	else 
-		cvError(-1, "GetCurveForImage", "unsupported image format", __FILE__, __LINE__);
-
+	else {
+		// cv::Error(-1, "GetCurveForImage", "unsupported image format", __FILE__, __LINE__);
+		std::cout << "GetCurveForImage: " << "unsupported image format" << std::endl;
+		exit(0);
+	}
 
 	threshold(gray, gray, 128, 255, THRESH_BINARY);
 //	imshow("input",gray);
 	
 	vector<vector<Point> > contours;
-	findContours( gray, contours, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE);
+	findContours( gray, contours, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
 	if (contours.size()<=0) return;
 
 	vector<Point> upperCurve = contours[0];
